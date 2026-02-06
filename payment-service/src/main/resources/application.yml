@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: payment-service
+    
+server:
+  port: 8082
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+logging:
+  level:
+    root: INFO
+    com.example.payment: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+      
+logstash:
+  host: ${LOGSTASH_HOST:logstash}
+  port: ${LOGSTASH_PORT:5000}
